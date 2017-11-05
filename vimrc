@@ -1,19 +1,16 @@
-syntax enable
-
-if has("autocmd")
-   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-       \| exe "normal! g'\"" | endif
-endif
-
-filetype plugin indent on
+" set nocp appears to fix error calling the subsequent pathogen function
+set nocp
 execute pathogen#infect()
 
+syntax enable
+
+filetype plugin indent on
+
 set background=dark
-colorscheme solarized
 
 set wildmode=longest:full
 set wildmenu
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set tabstop=2 shiftwidth=1 expandtab
 
 """"""""""""""""""""""""""""""""""""""""
 " Escape with df
@@ -34,11 +31,14 @@ nnoremap <silent> -- :nohlsearch<cr>
 
 " Allow bash syntax in .sh files by default let g:is_bash = 1
 
+set showtabline=2
+
 " Don't unload buffers that aren't visible set hidden
 
 if has("gui_running")
 set guioptions-=T
 set guioptions-=m
+set showtabline=1
 if $USER=="harvey"
 set guifont=consolas\ 13
 else
@@ -102,3 +102,6 @@ function! Email() range
   set background=dark
   colo solarized
 endfunction
+
+set viminfo='10,\"100,:20,%,n~/.viminfo
+
