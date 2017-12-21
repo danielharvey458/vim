@@ -1,52 +1,69 @@
-" set nocp appears to fix error calling the subsequent pathogen function
+"" set nocp appears to fix error calling the
+"" subsequent pathogen function
 set nocp
 execute pathogen#infect()
+
+set wildmode=longest:full
+set wildmenu
+set tabstop=2 shiftwidth=1 expandtab
+set background=dark
 
 syntax enable
 
 filetype plugin indent on
 
-set background=dark
+let mapleader =","
+let maplocalleader =",,"
 
-set wildmode=longest:full
-set wildmenu
-set tabstop=2 shiftwidth=1 expandtab
+"" Move to the beginning of the line
+nnoremap H ^
+nnoremap L $
 
-""""""""""""""""""""""""""""""""""""""""
-" Escape with df
-imap df <Esc>
+"" Wrap selected text in quotes
+vnoremap <leader>" <Esc>`<i"<Esc>`>a"<Esc>
+nnoremap <leader>" viw<Esc>a"<Esc>bi"<Esc>lel
 
-""""""""""""""""""""""""""""""""""""""""
-" Navigate around split windows.
-nmap <silent> <A-Up> : wincmd k<CR>
-nmap <silent> <A-Down> : wincmd j<CR>
-nmap <silent> <A-Left> : wincmd h<CR>
-nmap <silent> <A-Right> : wincmd l<CR>
+"" Open this file nice and easily
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
-imap ^H <Left><Del>
+"" Move text down
+nnoremap <C-j> :m .+1<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
 
-nnoremap wq <Esc>:xa<cr>
+"" Move text up
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-k> :m '<-2<CR>gv=gv
 
+"" Toggle case of words in insert mode
+inoremap <C-u> <Esc>viw~`^i
+nnoremap <C-u> viw~
+
+"" Abbreviation for what I cannot type proper
+iabbrev bugger buffer
+
+"" Escape with jk
+inoremap kj <Esc>
+inoremap <Esc> <nop>
+
+"" Navigate around split windows.
+nnoremap <silent> <A-Up> : wincmd k<CR>
+nnoremap <silent> <A-Down> : wincmd j<CR>
+nnoremap <silent> <A-Left> : wincmd h<CR>
+nnoremap <silent> <A-Right> : wincmd l<CR>
+
+"" Fask existing of files
+nnoremap wq <Esc>:wq<CR>
+
+"" Remove text highlighting
 nnoremap <silent> -- :nohlsearch<cr>
 
-" Allow bash syntax in .sh files by default let g:is_bash = 1
-
+"" Formatting
 set showtabline=2
 
-" Don't unload buffers that aren't visible set hidden
-
-if has("gui_running")
-set guioptions-=T
-set guioptions-=m
-set showtabline=1
-if $USER=="harvey"
-set guifont=consolas\ 13
-else
-set guifont=DejaVu\ Sans\ Mono\ 11
-endif
-endif
-
-" Indent otions
+" Indent options
 set smartindent
 
 " Searching options
@@ -54,46 +71,8 @@ set incsearch
 set ignorecase
 set smartcase
 
-" Mapping
-
-" Prevent hash lines being unindented (for Python) inoremap # X #
-
-map <A-PageUp> :bp<CR>
-map <A-PageDown> :bn<CR>
-
-" Map F2 to remove search highlighting
-map <F2> :nohl<CR>
-" Map F3 to toggle wrapping
-map <F3> :set wrap!<CR>
-" Map F4 in insert mode to complete XML tags imap <F4> <ESC>^y$$pbi/<ESC>hi
-
 set foldmethod=syntax
 set foldlevel=100
-
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-O>za
-vnoremap <F9> zf
-
-imap <F1> std::
-imap <F2> oxam::
-imap <F3> CHECK_API();<left><left>
-
-map <C-S> :ToggleWord<CR>b
-
-imap <F11> <ESC>0d$80i#<ESC>j^i
-map <F11> <ESC>0d$80i#<ESC>^<ESC>j
-imap <F12> <ESC>0d$80i/<ESC>j^i
-map <F12> <ESC>0d$80i/<ESC>^<ESC>j
-
-nmap <M-j> ]]
-nmap <M-k> [[
-
-" Remove the irritating man-page shortcut nmap <S-k> ""
-
-" Remove ZZ (same as :x)
-
-nmap <C-s> :set spell!<CR>
 
 function! Email() range
   colo default
@@ -105,3 +84,6 @@ endfunction
 
 set viminfo='10,\"100,:20,%,n~/.viminfo
 
+"" Python comments
+au FileType python nnoremap <buffer> <leader>c I#<Esc>
+au FileType cpp    nnoremap <buffer> <leader>c I//<Esc>
