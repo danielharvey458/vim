@@ -1,7 +1,11 @@
+[core]
+  editor = vim
 [filter "lfs"]
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
 [user]
-	name = dharvey1986
+	name = danielharvey458
 	email = danielharvey458@gmail.com
+[alias]
+  st = status
