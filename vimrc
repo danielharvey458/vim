@@ -5,7 +5,7 @@ execute pathogen#infect()
 
 set wildmode=longest:full
 set wildmenu
-set tabstop=2 shiftwidth=1 expandtab
+set tabstop=2 shiftwidth=2 expandtab
 set background=dark
 
 syntax enable
@@ -87,3 +87,12 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 "" Python comments
 au FileType python nnoremap <buffer> <leader>c I#<Esc>
 au FileType cpp    nnoremap <buffer> <leader>c I//<Esc>
+
+"" Local
+source ~/.vim/.vimrc_local
+
+"" Highlight overlength lines
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
