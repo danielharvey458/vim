@@ -30,4 +30,4 @@ alias xclip='pbcopy'
 alias ls='ls -GFh'
 alias ll='ls -lGFh'
 alias g++='/usr/bin/g++ --std=c++1y'
-
+alias rmswp='rm $(find -regex .*swp$)'
