@@ -59,6 +59,11 @@ nnoremap wq <Esc>:wq<CR>
 
 "" Remove text highlighting
 nnoremap <silent> -- :nohlsearch<cr>
+set hlsearch
+
+"" Tralling whitespace
+set listchars=trail:.
+set list
 
 "" Formatting
 set showtabline=2
