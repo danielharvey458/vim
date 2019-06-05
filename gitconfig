@@ -1,11 +1,13 @@
 [core]
   editor = vim
 [filter "lfs"]
-	clean = git lfs clean %f
-	smudge = git lfs smudge %f
-	required = true
+  clean = git lfs clean %f
+  smudge = git lfs smudge %f
+  required = true
 [user]
-	name = danielharvey458
-	email = danielharvey458@gmail.com
+  name = danielharvey458
+  email = danielharvey458@gmail.com
 [alias]
   st = status
+  co = checkout
+  meld = difftool --no-prompt --dir-diff --tool meld
