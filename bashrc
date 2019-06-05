@@ -1,5 +1,26 @@
 # Colouring of the terminal
-export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+PROMPT_COMMAND=__prompt_command # Func to gen PS1 after CMDs
+
+__prompt_command() {
+    local EXIT="$?"             # This needs to be first
+    PS1=""
+
+    local RCol='\[\e[0m\]'
+
+    local Red='\[\e[0;31m\]'
+    local Gre='\[\e[0;32m\]'
+    local BYel='\[\e[1;33m\]'
+    local BBlu='\[\e[1;34m\]'
+    local Pur='\[\e[0;35m\]'
+
+    if [ $EXIT != 0 ]; then
+        PS1+="${Red}\u${RCol}"      # Add red if exit code non 0
+    else
+        PS1+="${Gre}\u${RCol}"
+    fi
+
+    PS1+="${RCol}@${BBlu}\h:${BYel}\w${BYel} $ ${RCol}"
+}
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
